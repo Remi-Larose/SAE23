@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instant Weather V2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-cloud-sun"></i> Instant Weather V2</h1>
+            <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+                <i class="fas fa-moon"></i>
+            </button>
+        </header>
+
+        <!-- Formulaire de recherche -->
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-input-group">
+                    <input type="text" 
+                           id="cityInput" 
+                           placeholder="Rechercher une commune..." 
+                           autocomplete="off"
+                           aria-label="Nom de la commune">
+                    <button id="searchBtn" aria-label="Rechercher">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div id="suggestions" class="suggestions-dropdown" role="listbox" aria-hidden="true"></div>
+            </div>
+
+            <!-- Options avancées -->
+            <div class="options-container">
+                <div class="days-selector">
+                    <label for="daysRange">Nombre de jours de prévision :</label>
+                    <div class="range-container">
+                        <input type="range" 
+                               id="daysRange" 
+                               min="1" 
+                               max="7" 
+                               value="3"
+                               aria-label="Nombre de jours">
+                        <span id="daysValue">3</span> jour(s)
+                    </div>
+                </div>
+
+                <div class="additional-options">
+                    <h3>Informations supplémentaires :</h3>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="showLatitude" name="additionalInfo" value="latitude">
+                            <span class="checkmark"></span>
+                            Latitude
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="showLongitude" name="additionalInfo" value="longitude">
+                            <span class="checkmark"></span>
+                            Longitude
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="showRain" name="additionalInfo" value="rain">
+                            <span class="checkmark"></span>
+                            Cumul de pluie (mm)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="showWind" name="additionalInfo" value="wind">
+                            <span class="checkmark"></span>
+                            Vent moyen (km/h)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="showWindDirection" name="additionalInfo" value="windDirection">
+                            <span class="checkmark"></span>
+                            Direction du vent (°)
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Carte -->
+        <section class="map-section" id="mapSection" style="display: none;">
+            <div class="map-header">
+                <h3><i class="fas fa-map-marked-alt"></i> Localisation</h3>
+            </div>
+            <div id="map"></div>
+        </section>
+
+        <!-- Zone de résultats -->
+        <section class="results-section">
+            <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Chargement en cours...</p>
+            </div>
+
+            <div id="errorMessage" class="error-message" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p></p>
+            </div>
+
+            <div id="weatherResults" class="weather-results" style="display: none;">
+                <!-- Informations de la commune -->
+                <div class="city-info">
+                    <h2 id="cityName"></h2>
+                    <div id="cityCoordinates" class="coordinates"></div>
+                </div>
+
+                <!-- Cartes météo -->
+                <div id="weatherCards" class="weather-cards"></div>
+            </div>
+        </section>
+
+        <!-- Historique -->
+        <section class="history-section">
+            <h3><i class="fas fa-history"></i> Dernières recherches</h3>
+            <div id="searchHistory" class="search-history"></div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
